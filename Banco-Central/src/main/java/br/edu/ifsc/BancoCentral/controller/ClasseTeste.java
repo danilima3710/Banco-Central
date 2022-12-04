@@ -1,4 +1,4 @@
-package br.edu.ifsc.BancoCentral;
+package br.edu.ifsc.BancoCentral.controller;
 
 import br.edu.ifsc.BancoCentral.model.ModeloTeste;
 import br.edu.ifsc.BancoCentral.repository.TesteRepository;

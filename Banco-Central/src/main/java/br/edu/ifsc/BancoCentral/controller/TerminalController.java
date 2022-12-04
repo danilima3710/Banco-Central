@@ -1,0 +1,45 @@
+package br.edu.ifsc.BancoCentral.controller;
+
+import br.edu.ifsc.BancoCentral.model.Terminal;
+import br.edu.ifsc.BancoCentral.repository.TerminalRepository;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.SimpleEmail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class TerminalController {
+
+    @Autowired
+    TerminalRepository terminalRepository;
+
+    @PostMapping(path = "/api/terminal/cadastro")
+    public void cadastrarTerminal(@RequestBody Terminal terminal) {
+        try {
+            validaTerminal(terminal);
+
+            terminal = terminalRepository.save(terminal);
+
+            Email.enviarEmailCadastroTerminal(terminal);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(String.format("Erro ao cadastrar um terminal: %s", e.getMessage()));
+        }
+    }
+
+    private void validaTerminal(Terminal terminal) {
+        if (terminal.getCnpj().isEmpty())
+            throw new RuntimeException("CNPJ está vazio");
+
+        if (terminal.getNomeEstabelecimento().isEmpty())
+            throw new RuntimeException("Nome do estabelecimento está vazio");
+
+        if (terminal.getEndereco().isEmpty())
+            throw new RuntimeException("Endereço está vazio");
+
+        if (terminal.getEmail().isEmpty())
+            throw new RuntimeException("Email está vazio está vazio");
+    }
+}
