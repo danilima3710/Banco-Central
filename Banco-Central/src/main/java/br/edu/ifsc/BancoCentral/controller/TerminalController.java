@@ -2,8 +2,6 @@ package br.edu.ifsc.BancoCentral.controller;
 
 import br.edu.ifsc.BancoCentral.model.Terminal;
 import br.edu.ifsc.BancoCentral.repository.TerminalRepository;
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.SimpleEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +20,8 @@ public class TerminalController {
 
             terminal = terminalRepository.save(terminal);
 
-            Email.enviarEmailCadastroTerminal(terminal);
+            Email email = new Email();
+            email.enviarEmailCadastroTerminal(terminal);
         }
         catch (Exception e) {
             throw new RuntimeException(String.format("Erro ao cadastrar um terminal: %s", e.getMessage()));

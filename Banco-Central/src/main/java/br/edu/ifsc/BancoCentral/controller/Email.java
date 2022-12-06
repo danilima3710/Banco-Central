@@ -1,35 +1,33 @@
 package br.edu.ifsc.BancoCentral.controller;
 
 import br.edu.ifsc.BancoCentral.model.Terminal;
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.SimpleEmail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
+@Service
 public class Email {
 
-    public static void enviarEmailCadastroTerminal(Terminal terminal) {
-//        String email = "mandarEmailPDSII@gmail.com";
-//        String senha = "PDSII2022";
+    @Autowired
+    private JavaMailSender mailSender;
 
-        String email = "vilson.l@aluno.ifsc.edu.br";
-        String senha = "qwerty.BNU123";
+    @Value("${support.mail}")
+    private String supportMail;
 
-        SimpleEmail simpleEmail = new SimpleEmail();
-        simpleEmail.setHostName("smtp.gmail.com");
-        simpleEmail.setSmtpPort(465);
-        simpleEmail.setAuthenticator(new DefaultAuthenticator(email, senha));
-        simpleEmail.setSSLOnConnect(true);
+    public void enviarEmailCadastroTerminal(Terminal terminal) throws MessagingException {
+        MimeMessage mail = mailSender.createMimeMessage();
 
-        try {
-            simpleEmail.setFrom(email);
-            simpleEmail.setSubject("Cadastro do terminal");
-            simpleEmail.setMsg(String.format("O código para a empresa %s é %s", terminal.getNomeEstabelecimento(), terminal.getId().toString()));
-            simpleEmail.addTo(terminal.getEmail());
-            simpleEmail.send();
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        MimeMessageHelper message = new MimeMessageHelper(mail);
+        message.setSubject("Titulo");
+        message.setText("Esse é o corpo");
+        message.setFrom(supportMail);
+        message.setTo(terminal.getEmail());
+
+        mailSender.send(mail);
     }
 }
