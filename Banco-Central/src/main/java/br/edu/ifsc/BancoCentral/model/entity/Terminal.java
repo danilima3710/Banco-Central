@@ -1,4 +1,4 @@
-package br.edu.ifsc.BancoCentral.model;
+package br.edu.ifsc.BancoCentral.model.entity;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;

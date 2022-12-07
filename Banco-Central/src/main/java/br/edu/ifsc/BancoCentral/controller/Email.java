@@ -1,15 +1,6 @@
 package br.edu.ifsc.BancoCentral.controller;
 
-import br.edu.ifsc.BancoCentral.model.Terminal;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-
 import org.springframework.stereotype.Service;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 @Service
 public class Email {
