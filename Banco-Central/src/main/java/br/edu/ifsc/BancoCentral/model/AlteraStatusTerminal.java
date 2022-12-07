@@ -1,8 +1,13 @@
 package br.edu.ifsc.BancoCentral.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.UUID;
 
 public class AlteraStatusTerminal {
+    @Id
+    @GeneratedValue(generator = "UUID")
     private UUID id;
     private boolean status;
 
