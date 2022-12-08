@@ -1,4 +1,4 @@
-package br.edu.ifsc.BancoCentral.model;
+package br.edu.ifsc.BancoCentral.model.filtro;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

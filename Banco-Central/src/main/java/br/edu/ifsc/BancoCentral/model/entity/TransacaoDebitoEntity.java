@@ -16,7 +16,10 @@ public class TransacaoDebitoEntity {
     private String senha;
     private String numero;
     private UUID idBacen;
+    private UUID idTerminal;
     private boolean transacaoOK;
+    private String data;
+    private boolean transacaoCancelada;
 
     public UUID getId() {
         return id;
@@ -58,11 +61,35 @@ public class TransacaoDebitoEntity {
         this.idBacen = idBacen;
     }
 
+    public UUID getIdTerminal() {
+        return idTerminal;
+    }
+
+    public void setIdTerminal(UUID idTerminal) {
+        this.idTerminal = idTerminal;
+    }
+
     public boolean isTransacaoOK() {
         return transacaoOK;
     }
 
     public void setTransacaoOK(boolean transacaoOK) {
         this.transacaoOK = transacaoOK;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public boolean isTransacaoCancelada() {
+        return transacaoCancelada;
+    }
+
+    public void setTransacaoCancelada(boolean transacaoCancelada) {
+        this.transacaoCancelada = transacaoCancelada;
     }
 }

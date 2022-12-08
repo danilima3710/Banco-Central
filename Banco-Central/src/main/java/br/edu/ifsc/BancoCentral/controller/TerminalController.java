@@ -1,10 +1,11 @@
 package br.edu.ifsc.BancoCentral.controller;
 
-import br.edu.ifsc.BancoCentral.model.AlteraStatusTerminal;
+import br.edu.ifsc.BancoCentral.model.filtro.AlteraStatusTerminal;
 import br.edu.ifsc.BancoCentral.model.entity.Terminal;
 import br.edu.ifsc.BancoCentral.repository.TerminalRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
