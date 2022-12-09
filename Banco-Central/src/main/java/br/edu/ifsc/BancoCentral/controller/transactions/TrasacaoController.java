@@ -132,6 +132,8 @@ public class TrasacaoController {
             if (filtroCancelamento.getIdBacen() == debito.getIdBacen() && filtroCancelamento.getIdTerminal() == debito.getIdTerminal()) {
                 RestTemplate restTemplate = new RestTemplate();
                 String url = "localhost:5000/api/{" + debito.getId().toString() + "}/cancel";
+                String idBacen = restTemplate.getForObject(url, String.class);
+
                 debito.setTransacaoCancelada(true);
                 transacaoDebitoRepository.save(debito);
             }
@@ -141,6 +143,8 @@ public class TrasacaoController {
             if (filtroCancelamento.getIdBacen() == credito.getIdBacen() && filtroCancelamento.getIdTerminal() == credito.getIdTerminal()) {
                 RestTemplate restTemplate = new RestTemplate();
                 String url = "localhost:5000/api/{" + credito.getId().toString() + "}/cancel";
+                String idBacen = restTemplate.getForObject(url, String.class);
+
                 credito.setTransacaoCancelada(true);
                 transacaoCreditoRepository.save(credito);
             }
@@ -182,6 +186,7 @@ public class TrasacaoController {
 
         return true;
     }
+
     public void validaTerminal(UUID id) {
         Optional<Terminal> terminalOpt = terminalRepository.findById(id);
 

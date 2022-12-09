@@ -8,22 +8,13 @@ import java.util.UUID;
 public class AlteraStatusTerminal {
     @Id
     @GeneratedValue(generator = "UUID")
-    private UUID id;
-    private boolean status;
+    private String id;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 }

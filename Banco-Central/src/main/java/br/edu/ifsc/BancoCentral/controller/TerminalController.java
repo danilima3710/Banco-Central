@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class TerminalController {
@@ -19,11 +20,13 @@ public class TerminalController {
     TerminalRepository terminalRepository;
 
     @PostMapping(path = "/api/terminal/cadastro")
-    public void cadastrarTerminal(@RequestBody Terminal terminal) {
+    public String cadastrarTerminal(@RequestBody Terminal terminal) {
         try {
             validaTerminal(terminal);
 
             terminal = terminalRepository.save(terminal);
+
+            return "Sucesso";
 
 //            Email email = new Email();
 //            email.enviarEmailCadastroTerminal(terminal);
@@ -34,17 +37,19 @@ public class TerminalController {
     }
 
     @PostMapping(path = "/api/terminal/alterarStatus")
-    private void alterarStatusTerminal(@RequestBody AlteraStatusTerminal alteraStatus) {
+    private boolean alterarStatusTerminal(@RequestBody AlteraStatusTerminal alteraStatus) {
 
-        Optional<Terminal> terminalOpt = terminalRepository.findById(alteraStatus.getId());
+        Optional<Terminal> terminalOpt = terminalRepository.findById(UUID.fromString(alteraStatus.getId()));
 
         if (terminalOpt.isEmpty())
             throw new ServiceException("Não foi encontrado nenhum terminal com esse ID");
 
         Terminal terminal = terminalOpt.get();
-        terminal.setStatus(alteraStatus.isStatus());
+        terminal.setStatus(!terminal.getStatus());
 
         terminalRepository.save(terminal);
+
+        return true;
     }
 
     private void validaTerminal(Terminal terminal) {
